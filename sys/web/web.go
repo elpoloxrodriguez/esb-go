@@ -24,7 +24,9 @@ func Cargar() {
 
 //CargarModulosWebSite Cargador de modulos web
 func CargarModulosWebSite() {
-	Enrutador.HandleFunc("/ipsfa/api/web/loginW", wUsuario.LoginW).Methods("POST")
+	Enrutador.HandleFunc("/inea/api/web/loginW", wUsuario.LoginW).Methods("POST")
+	Enrutador.HandleFunc("/inea/api/web/cambiarclave", wUsuario.CambiarClave).Methods("POST")
+
 }
 
 //Principal Página inicial del sistema o bienvenida

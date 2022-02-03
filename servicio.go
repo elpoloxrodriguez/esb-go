@@ -39,7 +39,7 @@ func init() {
 	fmt.Println(".... Versión del Bus de Servicio Empresarial", sys.Version, " ....")
 	fmt.Println("..........................................................")
 	fmt.Println("")
-	if false {
+	if sys.MongoDB {
 		fmt.Println("")
 		fmt.Println("..........................................................")
 		fmt.Println("... Iniciando Carga de Elemento Para el servidor WEB   ...")
@@ -60,7 +60,7 @@ func main() {
 	web.Cargar()
 
 	srv := &http.Server{
-		Handler:      context.ClearHandler(Enrutador),
+		Handler:      context.ClearHandler(web.Enrutador),
 		Addr:         ":" + sys.PUERTO,
 		WriteTimeout: 280 * time.Second,
 		ReadTimeout:  280 * time.Second,
@@ -75,7 +75,7 @@ func main() {
 	go srv.ListenAndServe()
 
 	srvs := &http.Server{
-		Handler:      context.ClearHandler(Enrutador),
+		Handler:      context.ClearHandler(web.Enrutador),
 		Addr:         ":" + sys.PUERTO_STANDAR,
 		WriteTimeout: 280 * time.Second,
 		ReadTimeout:  280 * time.Second,
@@ -85,7 +85,7 @@ func main() {
 	//
 	//https://dominio.com/* Protocolo de capa de seguridad
 	server := &http.Server{
-		Handler:      context.ClearHandler(Enrutador),
+		Handler:      context.ClearHandler(web.Enrutador),
 		Addr:         ":" + sys.PUERTO_SSL,
 		WriteTimeout: 280 * time.Second,
 		ReadTimeout:  280 * time.Second,
@@ -94,7 +94,7 @@ func main() {
 	go server.ListenAndServeTLS("certificados/https/cert.pem", "certificados/https/key.pem")
 
 	serverx := &http.Server{
-		Handler:      context.ClearHandler(Enrutador),
+		Handler:      context.ClearHandler(web.Enrutador),
 		Addr:         ":" + sys.PUERTO_SSL_STANDAR,
 		WriteTimeout: 280 * time.Second,
 		ReadTimeout:  280 * time.Second,

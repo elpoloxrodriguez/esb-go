@@ -2,7 +2,7 @@ package sys
 
 const (
 	SERVERIMG         string = "https://app.ipsfa.gob.ve/imagenes/"
-	CBASE             string = "sssifanb"
+	CBASE             string = "inea" // NOMBRE DE LA BD MONGO
 	CTIM              string = "tim"
 	CESTADO           string = "estado"
 	CMILITAR          string = "militar"

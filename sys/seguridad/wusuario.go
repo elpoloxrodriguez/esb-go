@@ -29,21 +29,21 @@ var WPreguntas = []string{
 }
 
 //WCausante Control de familiares para asignaciones
-type WCausante struct {
-	Cedula     string `json:"cedula" bson:"cedula"`
-	Nombre     string `json:"nombre" bson:"nombre"`
-	Apellido   string `json:"apellido" bson:"apellido"`
-	Componente string `json:"componente" bson:"componente"`
-	Grado      string `json:"grado" bson:"grado"`
-}
+// type WCausante struct {
+// 	Cedula     string `json:"cedula" bson:"cedula"`
+// 	Nombre     string `json:"nombre" bson:"nombre"`
+// 	Apellido   string `json:"apellido" bson:"apellido"`
+// 	Componente string `json:"componente" bson:"componente"`
+// 	Grado      string `json:"grado" bson:"grado"`
+// }
 
 //WUsuario del Sistema
 type WUsuario struct {
-	ID            string       `json:"id,omitempty" bson:"id"`
-	Cedula        string       `json:"cedula" bson:"cedula"`
-	Nombre        string       `json:"nombre" bson:"nombre"`
-	Apellido      string       `json:"apellido" bson:"apellido"`
-	Causante      []WCausante  `json:"causante,omitempty" bson:"causante"`
+	ID       string `json:"id,omitempty" bson:"id"`
+	Cedula   string `json:"cedula" bson:"cedula"`
+	Nombre   string `json:"nombre" bson:"nombre"`
+	Apellido string `json:"apellido" bson:"apellido"`
+	// Causante      []WCausante  `json:"causante,omitempty" bson:"causante"`
 	Login         string       `json:"usuario" bson:"login"`
 	Clave         string       `json:"clave,omitempty" bson:"clave"`
 	Correo        string       `json:"correo" bson:"correo"`

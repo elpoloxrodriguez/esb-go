@@ -55,7 +55,7 @@ func WGenerarJWT(u WUsuario) string {
 		WUsuario: u,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Second * 360).Unix(),
-			Issuer:    "Conexión Bus de Servicio Empresarial",
+			Issuer:    "Conexión Bus de Servicio Empresarial ESB-INEA",
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, peticion)
