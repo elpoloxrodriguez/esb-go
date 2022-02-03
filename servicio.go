@@ -22,6 +22,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/elpoloxrodriguez/esb-inea/sys"
+	"github.com/elpoloxrodriguez/esb-inea/sys/web"
 	"github.com/gorilla/context"
 	"github.com/gorilla/mux"
 )
@@ -34,7 +36,7 @@ var (
 func init() {
 	fmt.Println("")
 	fmt.Println("..........................................................")
-	fmt.Println("...... Versión del Bus de Servicio Empresarial V.1. ......")
+	fmt.Println(".... Versión del Bus de Servicio Empresarial", sys.Version, " ....")
 	fmt.Println("..........................................................")
 	fmt.Println("")
 	if false {
@@ -55,13 +57,11 @@ func main() {
 	fmt.Println("[Rutas de Produccion] ✅")
 	fmt.Println("")
 
-	// routes.Cargar()
-	prefix := http.StripPrefix("/", http.FileServer(http.Dir("public_web/dist")))
-	Enrutador.PathPrefix("/").Handler(prefix)
+	web.Cargar()
 
 	srv := &http.Server{
 		Handler:      context.ClearHandler(Enrutador),
-		Addr:         ":81",
+		Addr:         ":" + sys.PUERTO,
 		WriteTimeout: 280 * time.Second,
 		ReadTimeout:  280 * time.Second,
 	}
@@ -71,34 +71,34 @@ func main() {
 	fmt.Println("..........................................................")
 	fmt.Println("")
 
-	fmt.Println("Servidor Escuchando en el puerto:", 81)
+	fmt.Println("Servidor Escuchando en el puerto:", sys.PUERTO)
 	go srv.ListenAndServe()
 
 	srvs := &http.Server{
 		Handler:      context.ClearHandler(Enrutador),
-		Addr:         ":8080",
+		Addr:         ":" + sys.PUERTO_STANDAR,
 		WriteTimeout: 280 * time.Second,
 		ReadTimeout:  280 * time.Second,
 	}
-	fmt.Println("Servidor Escuchando en el puerto:", 8080)
+	fmt.Println("Servidor Escuchando en el puerto:", sys.PUERTO_STANDAR)
 	go srvs.ListenAndServe()
 	//
 	//https://dominio.com/* Protocolo de capa de seguridad
 	server := &http.Server{
 		Handler:      context.ClearHandler(Enrutador),
-		Addr:         ":2608",
+		Addr:         ":" + sys.PUERTO_SSL,
 		WriteTimeout: 280 * time.Second,
 		ReadTimeout:  280 * time.Second,
 	}
-	fmt.Println("Servidor Escuchando en el puerto:", 2608)
+	fmt.Println("Servidor Escuchando en el puerto:", sys.PUERTO_SSL)
 	go server.ListenAndServeTLS("certificados/https/cert.pem", "certificados/https/key.pem")
 
 	serverx := &http.Server{
 		Handler:      context.ClearHandler(Enrutador),
-		Addr:         ":443",
+		Addr:         ":" + sys.PUERTO_SSL_STANDAR,
 		WriteTimeout: 280 * time.Second,
 		ReadTimeout:  280 * time.Second,
 	}
-	fmt.Println("Servidor Escuchando en el puerto:", 443)
+	fmt.Println("Servidor Escuchando en el puerto:", sys.PUERTO_SSL_STANDAR)
 	log.Fatal(serverx.ListenAndServeTLS("certificados/https/cert.pem", "certificados/https/key.pem"))
 }

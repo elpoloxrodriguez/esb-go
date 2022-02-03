@@ -7,6 +7,7 @@ import (
 
 	mgo "gopkg.in/mgo.v2"
 
+	"github.com/elpoloxrodriguez/esb-inea/util"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
 )
@@ -15,11 +16,8 @@ import (
 func MongoDBConexion(mapa map[string]CadenaDeConexion) {
 	c := mapa["mongodb"]
 	MGOSession, Error = mgo.Dial(c.Host + ":27017")
-	fmt.Println("Cargando Conexión Con MongoDB...")
-	// util.Error(Error)
-	// if e != nil {
-	// 	fmt.Println("\n Utilidad Error: ", e.Error())
-	// }
+	fmt.Println("[MongoDB: ", c.Host, " ✅]")
+	util.Error(Error)
 }
 
 //ConexionPACE
@@ -28,9 +26,15 @@ func ConexionPosgreSql(mapa map[string]CadenaDeConexion) {
 	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
 	PostgreSQLPACE, _ = sql.Open("postgres", cadena)
 	if PostgreSQLPACE.Ping() != nil {
-		fmt.Println("[PostgreSql: ", c.Host, " Error...] ", PostgreSQLPACE.Ping())
+		fmt.Println("[PostgreSql: ", c.Host, " ❌] ", PostgreSQLPACE.Ping())
 	} else {
-		fmt.Println("[PostgreSql: ", c.Host, " OK...]")
+		fmt.Println("")
+		fmt.Println("..........................................................")
+		fmt.Println("........ Inciando la carga de las Bases de Datos  ........")
+		fmt.Println("..........................................................")
+		fmt.Println("")
+
+		fmt.Println("[PostgreSql: ", c.Host, " ✅]")
 	}
 }
 
@@ -40,9 +44,9 @@ func ConexionMYSQL(mapa map[string]CadenaDeConexion) {
 	cadena := c.Usuario + ":" + c.Clave + "@tcp(" + c.Host + ":3306)/sssifanb"
 	MysqlFullText, _ = sql.Open("mysql", cadena)
 	if MysqlFullText.Ping() != nil {
-		fmt.Println("[mysql FULLTEXT: Error...] ", MysqlFullText.Ping())
+		fmt.Println("[MySql: ❌] ", MysqlFullText.Ping())
 	} else {
-		fmt.Println("[MySql: ", c.Host, " OK...]")
+		fmt.Println("[MySql: ", c.Host, " ✅]")
 	}
 	return
 }
