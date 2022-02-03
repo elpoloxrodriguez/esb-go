@@ -22,7 +22,6 @@ import (
 	"net/http"
 	"time"
 
-	"githib.com/elpoloxrodriguez/esb-inea/routes"
 	"github.com/gorilla/context"
 	"github.com/gorilla/mux"
 )
@@ -34,7 +33,9 @@ var (
 
 func init() {
 	fmt.Println("")
-	fmt.Println("Versión del Panel V.1")
+	fmt.Println("..........................................................")
+	fmt.Println("...... Versión del Bus de Servicio Empresarial V.1. ......")
+	fmt.Println("..........................................................")
 	fmt.Println("")
 	if false {
 		fmt.Println("")
@@ -46,8 +47,17 @@ func init() {
 }
 
 func main() {
-	fmt.Println("Inciando la carga del sistema")
-	routes.Cargar()
+	fmt.Println("")
+	fmt.Println("..........................................................")
+	fmt.Println("..... Inciando la carga de las rutas API del sistema .....")
+	fmt.Println("..........................................................")
+	fmt.Println("[Rutas de Desarrollo] ✅")
+	fmt.Println("[Rutas de Produccion] ✅")
+	fmt.Println("")
+
+	// routes.Cargar()
+	prefix := http.StripPrefix("/", http.FileServer(http.Dir("public_web/dist")))
+	Enrutador.PathPrefix("/").Handler(prefix)
 
 	srv := &http.Server{
 		Handler:      context.ClearHandler(Enrutador),
@@ -55,6 +65,12 @@ func main() {
 		WriteTimeout: 280 * time.Second,
 		ReadTimeout:  280 * time.Second,
 	}
+	fmt.Println("")
+	fmt.Println("..........................................................")
+	fmt.Println("..... Abriendo los puertos de conexion del servidor  .....")
+	fmt.Println("..........................................................")
+	fmt.Println("")
+
 	fmt.Println("Servidor Escuchando en el puerto:", 81)
 	go srv.ListenAndServe()
 

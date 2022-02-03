@@ -1,29 +1,11 @@
 [
-
-  {
-    "Driver" : "civiles",
-    "Usuario" : "ipsfa",
-    "Basedatos": "sigesp",
-    "Clave" : "ipsfa12345$",
-    "Host" : "localhost",
-    "Puerto" : "5432"
-  },
 {
-  "Driver" : "pension",
-  "Usuario" : "ipsfa",
-  "Basedatos": "pensiones",
-  "Clave" : "ipsfa12345$",
-  "Host" : "localhost",
-  "Puerto" : "5432",
-  "StrUrl": "/SSSIFANBW/pensiones/index.php/WServer/"
-},{
-  "Driver" : "pace",
+  "Driver" : "postgresql",
   "Usuario" : "ipsfa",
   "Basedatos": "pace",
   "Clave" : "ipsfa12345$",
   "Host" : "localhost",
-  "Puerto" : "5432",
-  "StrUrl": "/SSSIFANBW/fideicomiso/index.php/panel/WServer/"
+  "Puerto" : "5432"
 },{
   "Driver" : "mysql",
   "Usuario" : "root",

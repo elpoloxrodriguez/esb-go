@@ -79,9 +79,9 @@ func init() {
 	e := json.Unmarshal(data, &Conexiones)
 	for _, valor := range Conexiones {
 		switch valor.Driver {
-		case "pace":
+		case "postgresql":
 			cad := make(map[string]CadenaDeConexion)
-			cad["pace"] = CadenaDeConexion{
+			cad["postgresql"] = CadenaDeConexion{
 				Driver:    valor.Driver,
 				Usuario:   valor.Usuario,
 				Basedatos: valor.Basedatos,
@@ -89,7 +89,7 @@ func init() {
 				Host:      valor.Host,
 				Puerto:    valor.Puerto,
 			}
-			ConexionPACE(cad)
+			ConexionPosgreSql(cad)
 		case "mysql":
 			MySQL = true
 			cad := make(map[string]CadenaDeConexion)
