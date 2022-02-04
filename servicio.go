@@ -39,13 +39,13 @@ func init() {
 	fmt.Println(".... Versión del Bus de Servicio Empresarial", sys.Version, " ....")
 	fmt.Println("..........................................................")
 	fmt.Println("")
-	if sys.MongoDB {
-		fmt.Println("")
-		fmt.Println("..........................................................")
-		fmt.Println("... Iniciando Carga de Elemento Para el servidor WEB   ...")
-		fmt.Println("..........................................................")
-		fmt.Println("")
-	}
+	// if sys.MongoDB {
+	// 	fmt.Println("")
+	// 	fmt.Println("..........................................................")
+	// 	fmt.Println("... Iniciando Carga de Elemento Para el servidor WEB   ...")
+	// 	fmt.Println("..........................................................")
+	// 	fmt.Println("")
+	// }
 }
 
 func main() {

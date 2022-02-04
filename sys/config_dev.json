@@ -16,7 +16,7 @@
 },{
   "Driver" : "mongodb",
   "Usuario" : "ipsfa",
-  "Basedatos": "sssifanb",
+  "Basedatos": "inea",
   "Clave" : "123456789",
   "Host" : "localhost",
   "Puerto" : "27017"

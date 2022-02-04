@@ -18,32 +18,12 @@ const (
 	ESTADO_CIVIL       string = "0xEC" //Estado Civil
 )
 
-var WPreguntas = []string{
-	AINGRESO,
-	AASCENSO,
-	ANACIMIENTO,
-	CARNET_SERIAL,
-	CANTIDAD_HIJOS,
-	CANTIDAD_AFILIADOS,
-	ESTADO_CIVIL,
-}
-
-//WCausante Control de familiares para asignaciones
-// type WCausante struct {
-// 	Cedula     string `json:"cedula" bson:"cedula"`
-// 	Nombre     string `json:"nombre" bson:"nombre"`
-// 	Apellido   string `json:"apellido" bson:"apellido"`
-// 	Componente string `json:"componente" bson:"componente"`
-// 	Grado      string `json:"grado" bson:"grado"`
-// }
-
 //WUsuario del Sistema
 type WUsuario struct {
-	ID       string `json:"id,omitempty" bson:"id"`
-	Cedula   string `json:"cedula" bson:"cedula"`
-	Nombre   string `json:"nombre" bson:"nombre"`
-	Apellido string `json:"apellido" bson:"apellido"`
-	// Causante      []WCausante  `json:"causante,omitempty" bson:"causante"`
+	ID            string       `json:"id,omitempty" bson:"id"`
+	Cedula        string       `json:"cedula" bson:"cedula"`
+	Nombre        string       `json:"nombre" bson:"nombre"`
+	Apellido      string       `json:"apellido" bson:"apellido"`
 	Login         string       `json:"usuario" bson:"login"`
 	Clave         string       `json:"clave,omitempty" bson:"clave"`
 	Correo        string       `json:"correo" bson:"correo"`
@@ -99,10 +79,5 @@ func (u *WUsuario) Recuperar(correo string) (err error) {
 	c := sys.MGOSession.DB(sys.CBASE).C(sys.WUSUARIO)
 	err = c.Find(bson.M{"correo": correo}).Select(bson.M{"clave": false}).One(&u)
 
-	return
-}
-
-//CrearPreguntas Para encuestador
-func (u *WUsuario) CrearPreguntas() (err error) {
 	return
 }

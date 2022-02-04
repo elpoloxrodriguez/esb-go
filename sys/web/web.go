@@ -3,7 +3,6 @@ package web
 //Copyright Carlos Peña
 //Controlador del MiddleWare
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/elpoloxrodriguez/esb-inea/sys/web/api"
@@ -26,12 +25,12 @@ func Cargar() {
 func CargarModulosWebSite() {
 	Enrutador.HandleFunc("/inea/api/web/loginW", wUsuario.LoginW).Methods("POST")
 	Enrutador.HandleFunc("/inea/api/web/cambiarclave", wUsuario.CambiarClave).Methods("POST")
+	Enrutador.HandleFunc("/inea/recuperarclave", wUsuario.RecuperarW).Methods("POST")
 
 }
 
 //Principal Página inicial del sistema o bienvenida
 func Principal() {
-	fmt.Println("Cargando Modulos de AdminLTE...")
 	prefix := http.StripPrefix("/", http.FileServer(http.Dir("public_web/dist")))
 	Enrutador.PathPrefix("/").Handler(prefix)
 }
