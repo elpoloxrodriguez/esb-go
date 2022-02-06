@@ -5,7 +5,8 @@
   "Basedatos": "pensiones",
   "Clave" : "ipsfa12345$",
   "Host" : "localhost",
-  "Puerto" : "5432"
+  "Puerto" : "5432",
+  "Sslmode" : "disable"
 },
 {
   "Driver" : "mysql",

@@ -12,9 +12,11 @@ import (
 
 //Variables de Control
 var (
-	Enrutador   = mux.NewRouter()
-	wUsuario    api.WUsuario
-	lstCiudades api.ListaCiudades
+	Enrutador         = mux.NewRouter()
+	wUsuario          api.WUsuario
+	lstCiudades       api.ListaCiudades
+	lstaplicacion     api.Aplicacion
+	lstEmpleadoSigesp api.EmpleadoSIGESP
 )
 
 //Cargar los diferentes modulos del sistema
@@ -36,6 +38,8 @@ func CargarModulosDevel() {
 	fmt.Println("[Rutas de Desarrollo] ✅")
 	Enrutador.HandleFunc("/devel/api/wusuario/listar", wUsuario.Listar).Methods("GET")
 	Enrutador.HandleFunc("/devel/api/ciudades/listado", lstCiudades.Listar).Methods("GET")
+	Enrutador.HandleFunc("/devel/api/aplicacion/mysql/listado", lstaplicacion.MostrarDatos).Methods("GET")
+	Enrutador.HandleFunc("/devel/api/aplicacion/postgresql/listado", lstEmpleadoSigesp.MostrarDatoEmpleadoSIGESP).Methods("GET")
 }
 
 //Principal Página inicial del sistema o bienvenida

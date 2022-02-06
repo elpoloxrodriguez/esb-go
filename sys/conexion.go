@@ -46,7 +46,7 @@ func ConexionPosgreSql(mapa map[string]CadenaDeConexion) {
 //ConexionMYSQL
 func ConexionMYSQL(mapa map[string]CadenaDeConexion) {
 	c := mapa["mysql"]
-	cadena := c.Usuario + ":" + c.Clave + "@tcp(" + c.Host + ":3306)/sssifanb"
+	cadena := c.Usuario + ":" + c.Clave + "@tcp(" + c.Host + ":3306)/" + c.Basedatos
 	MysqlFullText, _ = sql.Open("mysql", cadena)
 	if MysqlFullText.Ping() != nil {
 		fmt.Println("[MySql: ❌] ", MysqlFullText.Ping())
