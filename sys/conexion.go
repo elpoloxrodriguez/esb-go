@@ -18,15 +18,20 @@ func MongoDBConexion(mapa map[string]CadenaDeConexion) {
 	MGOSession, Error = mgo.Dial(c.Host + ":27017")
 	fmt.Println("[MongoDB: ", c.Host, " ✅]")
 	util.Error(Error)
+	// if MGOSession.Ping() != nil {
+	// 	fmt.Println("[MongoDB: ", c.Host, " ❌] ", MGOSession.Ping())
+	// } else {
+	// 	fmt.Println("[MongoDB: ", c.Host, " ✅]")
+	// }
 }
 
 //ConexionPACE
 func ConexionPosgreSql(mapa map[string]CadenaDeConexion) {
 	c := mapa["postgresql"]
 	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
-	PostgreSQLPACE, _ = sql.Open("postgres", cadena)
-	if PostgreSQLPACE.Ping() != nil {
-		fmt.Println("[PostgreSql: ", c.Host, " ❌] ", PostgreSQLPACE.Ping())
+	PostgreSQL, _ = sql.Open("postgres", cadena)
+	if PostgreSQL.Ping() != nil {
+		fmt.Println("[PostgreSql: ", c.Host, " ❌] ", PostgreSQL.Ping())
 	} else {
 		fmt.Println("")
 		fmt.Println("..........................................................")

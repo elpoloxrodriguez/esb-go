@@ -253,3 +253,12 @@ func (u *WUsuario) RecuperarW(w http.ResponseWriter, r *http.Request) {
 
 	}
 }
+
+//Listar Usuario del sistema
+func (u *WUsuario) Listar(w http.ResponseWriter, r *http.Request) {
+	var usuario seguridad.Usuario
+	Cabecera(w, r)
+	j, _ := usuario.Listar()
+	w.WriteHeader(http.StatusOK)
+	w.Write(j)
+}

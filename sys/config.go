@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 
+	"github.com/elpoloxrodriguez/esb-inea/util"
 	mgo "gopkg.in/mgo.v2"
 )
 
@@ -13,24 +13,16 @@ type config struct{}
 
 //Variables del modelo
 var (
-	MySQL           bool = false
-	MongoDB         bool = false
-	SQLServer       bool = false
-	Oracle          bool = false
-	BaseDeDatos     BaseDatos
-	MGOSession      *mgo.Session
-	PostgreSQLSAMAN *sql.DB
-	PsqlWEB         *sql.DB
-	PostgreSQLPACE  *sql.DB
-	MysqlFullText   *sql.DB
-	Error           error
-	HostIPPace      string = ""
-	HostUrlPace     string = ""
-	HostIPPension   string = ""
-	HostUrlPension  string = ""
-	HostIPJubilado  string = ""
-	HostUrlJubilado string = ""
-	Version         string = "V.2.2.2"
+	MySQL         bool = false
+	MongoDB       bool = false
+	SQLServer     bool = false
+	Oracle        bool = false
+	BaseDeDatos   BaseDatos
+	MGOSession    *mgo.Session
+	PostgreSQL    *sql.DB
+	MysqlFullText *sql.DB
+	Error         error
+	Version       string = "V.2.2.2"
 )
 
 //Constantes del sistema
@@ -43,7 +35,7 @@ const (
 	DESACTIVAR_ROLES              bool   = false
 	ACTIVAR_LIMITE_DE_CONSULTA    bool   = true
 	DESACTIVAR_LIMITE_DE_CONSULTA bool   = false
-	PUERTO                        string = "81"
+	PUERTO                        string = "80"
 	PUERTO_STANDAR                string = "8080"
 	PUERTO_SSL                    string = "2608"
 	PUERTO_SSL_STANDAR            string = "443"
@@ -73,9 +65,9 @@ var Conexiones []CadenaDeConexion
 
 //init Inicio y control
 func init() {
-	var NombreDelArchivo string
-	NombreDelArchivo = "sys/config_dev.json"
-	data, _ := ioutil.ReadFile(NombreDelArchivo)
+	var a util.Archivo
+	a.NombreDelArchivo = "sys/config_dev.json"
+	data, _ := a.LeerTodo()
 	e := json.Unmarshal(data, &Conexiones)
 	for _, valor := range Conexiones {
 		switch valor.Driver {

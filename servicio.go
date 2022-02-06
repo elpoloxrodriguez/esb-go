@@ -39,51 +39,17 @@ func init() {
 	fmt.Println(".... Versión del Bus de Servicio Empresarial", sys.Version, " ....")
 	fmt.Println("..........................................................")
 	fmt.Println("")
-	// if sys.MongoDB {
-	// 	fmt.Println("")
-	// 	fmt.Println("..........................................................")
-	// 	fmt.Println("... Iniciando Carga de Elemento Para el servidor WEB   ...")
-	// 	fmt.Println("..........................................................")
-	// 	fmt.Println("")
-	// }
+	if sys.MongoDB {
+		fmt.Println("")
+		fmt.Println("..........................................................")
+		fmt.Println("... Iniciando Carga de Elementos Para el servidor WEB   ...")
+		fmt.Println("..........................................................")
+		fmt.Println("")
+	}
 }
 
-func main() {
-	fmt.Println("")
-	fmt.Println("..........................................................")
-	fmt.Println("..... Inciando la carga de las rutas API del sistema .....")
-	fmt.Println("..........................................................")
-	fmt.Println("[Rutas de Desarrollo] ✅")
-	fmt.Println("[Rutas de Produccion] ✅")
-	fmt.Println("")
-
-	web.Cargar()
-
-	srv := &http.Server{
-		Handler:      context.ClearHandler(web.Enrutador),
-		Addr:         ":" + sys.PUERTO,
-		WriteTimeout: 280 * time.Second,
-		ReadTimeout:  280 * time.Second,
-	}
-	fmt.Println("")
-	fmt.Println("..........................................................")
-	fmt.Println("..... Abriendo los puertos de conexion del servidor  .....")
-	fmt.Println("..........................................................")
-	fmt.Println("")
-
-	fmt.Println("Servidor Escuchando en el puerto:", sys.PUERTO)
-	go srv.ListenAndServe()
-
-	srvs := &http.Server{
-		Handler:      context.ClearHandler(web.Enrutador),
-		Addr:         ":" + sys.PUERTO_STANDAR,
-		WriteTimeout: 280 * time.Second,
-		ReadTimeout:  280 * time.Second,
-	}
-	fmt.Println("Servidor Escuchando en el puerto:", sys.PUERTO_STANDAR)
-	go srvs.ListenAndServe()
-	//
-	//https://dominio.com/* Protocolo de capa de seguridad
+func PuertosProduccion() {
+	fmt.Println("... Puertos de Desarrollo ✅ ...")
 	server := &http.Server{
 		Handler:      context.ClearHandler(web.Enrutador),
 		Addr:         ":" + sys.PUERTO_SSL,
@@ -93,6 +59,28 @@ func main() {
 	fmt.Println("Servidor Escuchando en el puerto:", sys.PUERTO_SSL)
 	go server.ListenAndServeTLS("certificados/https/cert.pem", "certificados/https/key.pem")
 
+	srv := &http.Server{
+		Handler:      context.ClearHandler(web.Enrutador),
+		Addr:         ":" + sys.PUERTO_STANDAR,
+		WriteTimeout: 280 * time.Second,
+		ReadTimeout:  280 * time.Second,
+	}
+	fmt.Println("Servidor Escuchando en el puerto:", sys.PUERTO_STANDAR)
+	fmt.Println("")
+	go srv.ListenAndServe()
+}
+
+func PuertosDesarrollo() {
+	fmt.Println("... Puertos de Produccion ✅ ...")
+	srvs := &http.Server{
+		Handler:      context.ClearHandler(web.Enrutador),
+		Addr:         ":" + sys.PUERTO,
+		WriteTimeout: 280 * time.Second,
+		ReadTimeout:  280 * time.Second,
+	}
+	fmt.Println("Servidor Escuchando en el puerto:", sys.PUERTO)
+	go srvs.ListenAndServe()
+
 	serverx := &http.Server{
 		Handler:      context.ClearHandler(web.Enrutador),
 		Addr:         ":" + sys.PUERTO_SSL_STANDAR,
@@ -100,5 +88,23 @@ func main() {
 		ReadTimeout:  280 * time.Second,
 	}
 	fmt.Println("Servidor Escuchando en el puerto:", sys.PUERTO_SSL_STANDAR)
+	fmt.Println("..........................................................")
 	log.Fatal(serverx.ListenAndServeTLS("certificados/https/cert.pem", "certificados/https/key.pem"))
+}
+
+func main() {
+	fmt.Println("")
+	fmt.Println("..........................................................")
+	fmt.Println("..... Inciando la carga de las rutas API del sistema .....")
+	fmt.Println("..........................................................")
+	web.Cargar()
+	fmt.Println("")
+
+	fmt.Println("")
+	fmt.Println("..........................................................")
+	fmt.Println("..... Abriendo los puertos de conexion del servidor  .....")
+	fmt.Println("..........................................................")
+	fmt.Println("")
+	PuertosProduccion()
+	PuertosDesarrollo()
 }
